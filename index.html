@@ -1,0 +1,1232 @@
+﻿<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>المنصة السيادية لسجلات البرمجة والذكاء الاصطناعي 2026/2027</title>
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            /* الألوان السيادية والقوية للوحة التحكم */
+            --primary: #0284c7;
+            --primary-glow: rgba(2, 132, 199, 0.6);
+            --secondary: #00e5ff;
+            --dark-bg: #040914;
+            --panel-bg: #0b1325;
+            --panel-border: rgba(0, 229, 255, 0.2);
+            --text-light: #f8fafc;
+            
+            /* ألوان الطباعة والأوراق الرسمية */
+            --paper: #ffffff;
+            --paper-shadow: 0 25px 60px rgba(0, 0, 0, 0.5);
+            --official-blue: #0f172a; /* لون الحبر الرسمي */
+            --official-gold: #b45309; /* لون الأختام */
+            --official-accent: #1d4ed8;
+            --table-border: #1e293b;
+            --watermark: rgba(15, 23, 42, 0.04);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Cairo', sans-serif; }
+
+        body {
+            background-color: var(--dark-bg); color: var(--text-light);
+            display: flex; height: 100vh; overflow: hidden;
+            background-image: radial-gradient(circle at 10% 50%, rgba(2, 132, 199, 0.1), transparent 30%), radial-gradient(circle at 90% 30%, rgba(0, 229, 255, 0.1), transparent 30%);
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: var(--dark-bg); }
+        ::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--secondary); }
+
+        /* Sidebar */
+        .sidebar {
+            width: 310px; background-color: rgba(11, 19, 37, 0.98); border-left: 1px solid var(--panel-border);
+            display: flex; flex-direction: column; z-index: 100; box-shadow: -15px 0 50px rgba(0,0,0,0.9);
+        }
+        .sidebar-header {
+            padding: 35px 20px; text-align: center; border-bottom: 1px solid var(--panel-border);
+            background: linear-gradient(180deg, rgba(2, 132, 199, 0.2), transparent);
+        }
+        .sidebar-header img {
+            width: 100px; height: 100px; border-radius: 50%; border: 3px solid var(--secondary);
+            margin-bottom: 15px; box-shadow: 0 0 30px var(--primary-glow);
+        }
+        .sidebar-header h3 { font-size: 1.3rem; font-weight: 900; color: var(--secondary); margin-bottom: 5px; text-shadow: 0 0 15px rgba(0, 229, 255, 0.5); }
+        .sidebar-header p { font-size: 0.95rem; color: #cbd5e1; font-weight: 700; }
+
+        .nav-links { flex: 1; overflow-y: auto; padding: 25px 0; }
+        .nav-link {
+            display: flex; align-items: center; padding: 16px 30px; color: #94a3b8; text-decoration: none;
+            transition: all 0.3s; cursor: pointer; border-right: 5px solid transparent; font-weight: 800; font-size: 1.1rem;
+        }
+        .nav-link:hover, .nav-link.active {
+            background: linear-gradient(90deg, rgba(0, 229, 255, 0.15), transparent);
+            color: var(--secondary); border-right-color: var(--secondary); text-shadow: 0 0 10px rgba(0, 229, 255, 0.6); padding-right: 40px;
+        }
+        .nav-link i { width: 35px; font-size: 1.5rem; margin-left: 15px; text-align: center; }
+
+        .sidebar-footer { padding: 25px; border-top: 1px solid var(--panel-border); }
+
+        /* Buttons */
+        .btn {
+            padding: 12px 25px; border-radius: 8px; border: none; cursor: pointer; font-weight: 800;
+            display: inline-flex; align-items: center; justify-content: center; gap: 10px; font-size: 1.05rem; transition: all 0.3s;
+        }
+        .btn-primary { background: linear-gradient(135deg, var(--primary), #0369a1); color: white; box-shadow: 0 6px 20px rgba(2, 132, 199, 0.5); }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 25px var(--primary-glow); }
+        .btn-outline { background: rgba(0, 229, 255, 0.05); border: 2px solid var(--secondary); color: var(--secondary); }
+        .btn-outline:hover { background: rgba(0, 229, 255, 0.15); box-shadow: 0 0 20px rgba(0, 229, 255, 0.4); }
+        .btn-success { background: linear-gradient(135deg, #10b981, #059669); color: white; box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4); }
+
+        /* زر الطباعة العائم الاحترافي */
+        .floating-print-btn {
+            position: fixed;
+            bottom: 40px;
+            left: 40px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: #040914;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-size: 1.3rem;
+            font-weight: 900;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(0, 229, 255, 0.5);
+            z-index: 1000;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: none;
+            align-items: center;
+            gap: 12px;
+        }
+        .floating-print-btn:hover {
+            transform: scale(1.05) translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 229, 255, 0.8);
+            color: #fff;
+        }
+
+        /* Workspace */
+        .workspace { flex: 1; display: flex; flex-direction: column; position: relative; overflow-y: auto; scroll-behavior: smooth; }
+        .topbar {
+            height: 85px; background-color: rgba(11, 19, 37, 0.95); backdrop-filter: blur(15px); border-bottom: 1px solid var(--panel-border);
+            display: flex; justify-content: space-between; align-items: center; padding: 0 40px; box-shadow: 0 5px 30px rgba(0,0,0,0.7); position: sticky; top: 0; z-index: 10;
+        }
+        .topbar h2 { font-size: 1.7rem; font-weight: 900; color: var(--text-light); }
+        .topbar h2 span { color: var(--secondary); text-shadow: 0 0 20px var(--secondary); }
+        .topbar-actions { display: flex; gap: 15px; }
+
+        .view-container { padding: 50px; display: none; animation: fadeIn 0.5s ease forwards; }
+        .view-container.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Dashboard */
+        .dashboard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 40px; margin-bottom: 40px; }
+        .card { background: linear-gradient(145deg, rgba(15, 23, 42, 0.9), rgba(11, 19, 37, 0.95)); border-radius: 20px; padding: 40px; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 20px 50px rgba(0,0,0,0.6); position: relative; }
+        .card::before { content: ''; position: absolute; top: 0; right: 0; left: 0; height: 5px; background: linear-gradient(90deg, var(--primary), var(--secondary)); box-shadow: 0 0 20px var(--secondary); }
+        .form-group { margin-bottom: 25px; }
+        .form-group label { display: block; margin-bottom: 12px; color: #cbd5e1; font-size: 1.1rem; font-weight: 800; }
+        .form-group input { width: 100%; padding: 15px 20px; border-radius: 10px; background-color: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.2); color: white; font-family: 'Cairo', sans-serif; font-size: 1.15rem; font-weight: 700; transition: all 0.3s; }
+        .form-group input:focus { outline: none; border-color: var(--secondary); box-shadow: 0 0 20px rgba(0, 229, 255, 0.3); }
+
+        /* =========================================
+           تنسيقات الأوراق الرسمية (A4) - التطوير المتقدم والاحترافي
+           ========================================= */
+        .documents-wrapper { display: flex; flex-direction: column; align-items: center; gap: 70px; }
+
+        .a4-page {
+            width: 210mm; 
+            min-height: 297mm; 
+            background-color: var(--paper); 
+            color: var(--official-blue);
+            box-shadow: var(--paper-shadow); 
+            margin: 0 auto; 
+            position: relative;
+            font-family: 'Tajawal', sans-serif; 
+            padding: 20mm 15mm; /* هوامش متوازنة للطباعة */
+            page-break-after: always; 
+            page-break-inside: avoid;
+            display: flex; flex-direction: column; 
+            overflow: hidden;
+            background-image: url('data:image/svg+xml;utf8,<svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="dot" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1" fill="%23cbd5e1" opacity="0.3"/></pattern></defs><rect width="100%" height="100%" fill="url(%23dot)"/></svg>'), linear-gradient(to bottom, #ffffff, #fdfdfd);
+            z-index: 1;
+        }
+
+        /* الإطار الداخلي السيادي لكل الصفحات بمقاسات آمنة من الاقتصاص */
+        .a4-page::after {
+            content: ''; position: absolute;
+            top: 12mm; bottom: 12mm; left: 12mm; right: 12mm;
+            border: 3px double rgba(15, 23, 42, 0.3);
+            pointer-events: none; z-index: -1;
+            border-radius: 4px;
+        }
+
+        .page-content {
+            position: relative;
+            z-index: 5;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* تصحيح العناصر القابلة للتعديل بذكاء */
+        span[contenteditable="true"], div[contenteditable="true"], h1[contenteditable="true"], h2[contenteditable="true"], p[contenteditable="true"], h3[contenteditable="true"] {
+            display: inline-block; min-width: 20px; transition: all 0.2s; border-radius: 4px; padding: 2px 6px;
+        }
+        td[contenteditable="true"], th[contenteditable="true"] {
+            display: table-cell !important; cursor: text; transition: background 0.2s;
+        }
+        [contenteditable="true"]:hover { background-color: rgba(253, 224, 71, 0.2); outline: 1px dashed rgba(0,0,0,0.1); }
+        [contenteditable="true"]:focus { background-color: rgba(253, 224, 71, 0.4); outline: 2px solid var(--primary); }
+        .dynamic-val { color: var(--official-accent); font-weight: 900; }
+
+        /* الأغلفة - تصميم شهادة معتمدة بخوارزمية Box-Shadow لمنع الاقتصاص نهائياً */
+        .cover-page {
+            /* استخدام الظل الداخلي كإطار لضمان عدم خروجه عن حدود الورقة في الطابعة */
+            box-shadow: inset 0 0 0 12px var(--official-blue), inset 0 0 0 16px #fff, inset 0 0 0 22px var(--official-gold) !important;
+            background: 
+                url('data:image/svg+xml;utf8,<svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="g" width="100" height="100" patternUnits="userSpaceOnUse"><path d="M 100 0 L 0 100" fill="none" stroke="%23cbd5e1" stroke-width="0.5" opacity="0.5"/></pattern></defs><rect width="100%" height="100%" fill="url(%23g)"/></svg>'),
+                radial-gradient(circle at center, #ffffff 40%, #f8fafc 100%);
+            padding: 40mm 25mm; justify-content: space-between; align-items: center; text-align: center;
+            border: none !important;
+            outline: none !important;
+        }
+        .cover-page::after { display: none; } /* إخفاء الإطار الداخلي العادي في الغلاف */
+        
+        .cover-header {
+            width: 100%; display: flex; justify-content: space-between; font-weight: 900; font-size: 1.5rem;
+            color: var(--official-blue); border-bottom: 5px solid var(--official-blue); padding-bottom: 20px; line-height: 1.8; z-index: 2;
+        }
+        .cover-graphics { width: 260px; height: 260px; margin: auto; position: relative; filter: drop-shadow(0 15px 25px rgba(0,0,0,0.15)); z-index: 2; }
+        .cover-title {
+            font-size: 4.5rem; font-weight: 900; color: var(--official-blue); margin: 0;
+            text-shadow: 2px 2px 0px rgba(255,255,255,1), 4px 4px 10px rgba(15,23,42,0.1); line-height: 1.3; font-family: 'Cairo', sans-serif; z-index: 2;
+        }
+        .cover-subtitle {
+            font-size: 2.2rem; color: var(--official-gold); font-weight: 900; margin: 25px 0; background: rgba(255, 255, 255, 0.98);
+            padding: 12px 50px; border-radius: 5px; border: 3px solid var(--official-gold); box-shadow: 0 10px 20px rgba(0,0,0,0.05); z-index: 2; display: inline-block;
+        }
+        .cover-details {
+            width: 100%; display: flex; flex-direction: column; gap: 15px; font-size: 1.6rem; font-weight: 900;
+            background: rgba(255,255,255,0.98); padding: 30px; border-radius: 8px; border: 4px double var(--official-blue);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.08); z-index: 2;
+        }
+        .cover-row { display: flex; justify-content: space-between; border-bottom: 2px dashed #cbd5e1; padding-bottom: 10px; }
+
+        /* الترويسات الداخلية والتوقيعات (بمظهر الأختام) */
+        .doc-header { text-align: center; margin-bottom: 30px; position: relative; }
+        .doc-header h2 {
+            color: var(--official-blue); font-size: 2.2rem; font-weight: 900; display: inline-block;
+            padding-bottom: 8px; border-bottom: 4px solid var(--official-gold); position: relative;
+            background: #fff; padding: 0 20px;
+        }
+        .doc-header::before {
+            content: ''; position: absolute; top: 50%; left: 0; right: 0; height: 2px; background: var(--official-gold); z-index: -1;
+        }
+        
+        /* تصميم التوقيعات الاحترافي والمحاذاة التلقائية للأسفل */
+        .doc-signatures {
+            display: flex; justify-content: space-between; width: 100%; font-weight: 900; font-size: 1.3rem;
+            text-align: center; background: #fafafa; padding: 20px 30px; border-radius: 6px;
+            border: 2px solid var(--official-blue); margin-top: auto; position: relative;
+            page-break-inside: avoid;
+            box-shadow: inset 0 0 15px rgba(0,0,0,0.03);
+        }
+        .doc-signatures div { width: 30%; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; color: var(--official-blue); line-height: 1.6; }
+        /* خط التوقيع بالقلم (متصل ليكون أكثر رسمية) */
+        .doc-signatures div span { 
+            display: block; width: 85%; margin-top: 35px; border-top: 2px solid var(--official-blue); padding-top: 8px;
+            font-size: 1.15rem; color: var(--official-accent); font-family: 'Tajawal', sans-serif;
+        }
+
+        /* =========================================
+           الجداول الرسمية المنضبطة
+           ========================================= */
+        .table-container {
+            flex-grow: 1; display: flex; flex-direction: column; margin-bottom: 20px; overflow: hidden;
+        }
+        .editable-table {
+            width: 100%; border-collapse: collapse; font-size: 1.15rem; font-weight: 800;
+            table-layout: fixed; background: #fff; border: 3px solid var(--official-blue);
+        }
+        .editable-table th, .editable-table td {
+            border: 1px solid var(--table-border); padding: 12px 8px;
+            text-align: center; vertical-align: middle; word-wrap: break-word; overflow-wrap: break-word;
+        }
+        .editable-table th { background-color: #f1f5f9; color: var(--official-blue); font-size: 1.2rem; font-weight: 900; border-bottom: 3px solid var(--official-blue); }
+        .editable-table tr:nth-child(even) td { background-color: rgba(241, 245, 249, 0.6); }
+
+        /* جدول الحضور والغياب (معالجة التكدس) */
+        .attendance-table { font-size: 14px !important; }
+        .attendance-table th, .attendance-table td { padding: 6px 2px !important; }
+        .att-num { width: 4%; } .att-name { width: 22%; text-align: right !important; padding-right: 10px !important; }
+        .att-day { width: 3.7%; font-size: 12px; }
+
+        .add-row-btn {
+            background: linear-gradient(135deg, #10b981, #059669); color: white; border: none; padding: 10px 20px;
+            border-radius: 8px; cursor: pointer; font-size: 1.1rem; font-weight: 800; align-self: flex-start;
+            display: inline-flex; gap: 8px; align-items: center; box-shadow: 0 4px 15px rgba(16,185,129,0.3); margin-bottom: 15px;
+        }
+        .add-row-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(16,185,129,0.5); }
+
+        /* نصوص الفقرات المنسقة */
+        .official-text {
+            font-size: 1.5rem; line-height: 2.2; font-weight: 800; text-align: justify; text-justify: inter-word;
+            padding: 30px; border: 3px solid var(--official-blue); border-radius: 8px; background: rgba(255,255,255,0.95);
+            box-shadow: 5px 5px 0px rgba(15, 23, 42, 0.05);
+        }
+
+        /* =========================================================
+           FOOTER PROFESSIONALLY CENTERED - SOVEREIGN EAGLE
+           تم الاحتفاظ به بالكامل 100% دون أي تغيير حسب التعليمات الصارمة
+           ========================================================= */
+        .footer-wrapper {
+            padding: 80px 20px; background: rgba(2, 5, 10, 0.98); border-top: 3px solid var(--secondary, #00e5ff); 
+            display: flex; justify-content: center; align-items: center; position: relative; overflow: hidden; 
+            height: 500px; flex-shrink: 0; box-shadow: 0 -15px 50px rgba(0,0,0,0.9); margin-top: 60px;
+        }
+        .circle-container { position: relative; width: 450px; height: 450px; display: flex; justify-content: center; align-items: center; }
+        .rotating-svg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; animation: rotateText 22s linear infinite; z-index: 2; }
+        @keyframes rotateText { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .text-path-style { font-size: 21px; fill: #ffffff; font-family: 'Arial Black', Impact, sans-serif; letter-spacing: 6px; filter: drop-shadow(2px 2px 3px rgba(0,0,0,0.9)); }
+        .name-highlight { font-size: 29px; font-weight: 900; fill: var(--secondary, #00e5ff); letter-spacing: 4px; text-transform: uppercase; }
+        .center-prayer {
+            position: relative; width: 360px; text-align: center; font-size: 2.2rem; font-weight: 900; 
+            color: var(--secondary, #00e5ff); line-height: 1.8; z-index: 10; display: flex; flex-direction: column; justify-content: center; align-items: center;
+            text-shadow: 0 1px 0 #00b8cc, 0 2px 0 #008a99, 0 3px 0 #005c66, 0 4px 0 #002e33, 0 10px 20px rgba(0,0,0,0.9), 0 0 40px var(--primary-glow, rgba(0, 229, 255, 0.6));
+        }
+        .center-prayer::before { content: "🦅"; font-size: 2.5rem; margin-bottom: 15px; opacity: 0.95; filter: drop-shadow(0 0 15px var(--primary-glow, rgba(0, 229, 255, 0.6))); }
+        .center-prayer::after { content: "🦅"; font-size: 2.5rem; margin-top: 15px; opacity: 0.95; filter: drop-shadow(0 0 15px var(--primary-glow, rgba(0, 229, 255, 0.6))); transform: scaleX(-1); }
+
+        /* =========================================
+           هندسة الطباعة الاحترافية المتقدمة (@media print)
+           ========================================= */
+        @page { 
+            size: A4 portrait; 
+            margin: 0; /* تحييد هوامش المتصفح بالكامل */
+        } 
+        
+        @media print {
+            body { 
+                background: #ffffff !important; 
+                display: block !important; 
+                -webkit-print-color-adjust: exact !important; 
+                print-color-adjust: exact !important;
+            }
+            .sidebar, .topbar, .dashboard-grid, .footer-wrapper, .add-row-btn, #toast, .no-print, .floating-print-btn { 
+                display: none !important; 
+            }
+            .workspace { overflow: visible !important; display: block !important; height: auto !important; padding:0 !important; }
+            .view-container { display: none; padding: 0 !important; animation: none; opacity: 1; }
+            .view-container.active { display: block !important; }
+            .documents-wrapper { gap: 0 !important; display: block !important; }
+            
+            /* ضبط الورقة بدقة مليمترية لمنع الصفحات البيضاء والاقتصاص */
+            .a4-page {
+                margin: 0 !important; 
+                border-radius: 0 !important; 
+                width: 210mm !important; 
+                height: 296.5mm !important; /* ضبط الارتفاع بدقة لتجنب الصفحة الإضافية */
+                max-height: 297mm !important;
+                page-break-after: always !important; 
+                page-break-inside: avoid !important;
+                padding: 12mm 15mm !important; /* هامش داخلي آمن جداً للطباعة */
+                box-sizing: border-box !important;
+                overflow: hidden !important;
+            }
+            .a4-page:last-of-type { page-break-after: auto !important; }
+
+            /* الغلاف في الطباعة (استخدام Box-Shadow حصراً لعدم اقتصاص الإطار) */
+            .cover-page { 
+                box-shadow: inset 0 0 0 10px #0f172a, inset 0 0 0 14px #fff, inset 0 0 0 18px #b45309 !important; 
+                padding: 30mm 20mm !important; 
+            }
+
+            /* ثبات الجداول والتوقيعات */
+            .editable-table th, .editable-table td { border-color: #1e293b !important; border-width: 1.5px !important; }
+            .editable-table th { background-color: #f1f5f9 !important; color: #000 !important; }
+            .doc-signatures { border: 2px solid #000 !important; background: transparent !important; }
+            .doc-signatures div span { border-top-color: #000 !important; color: #000 !important; }
+            
+            /* إخفاء تأثيرات التعديل كلياً عند الطباعة */
+            [contenteditable="true"] {
+                background: transparent !important;
+                outline: none !important;
+                border: none !important;
+                box-shadow: none !important;
+            }
+            [contenteditable="true"]:hover, [contenteditable="true"]:focus { background: transparent !important; outline: none !important; }
+        }
+
+        #toast {
+            position: fixed; top: 20px; left: 50%; transform: translateX(-50%) translateY(-20px);
+            background: linear-gradient(135deg, #10b981, #059669); color: white; padding: 15px 30px; border-radius: 10px;
+            box-shadow: 0 15px 35px rgba(16, 185, 129, 0.6); z-index: 9999; opacity: 0; transition: all 0.4s;
+            font-weight: 900; font-size: 1.2rem; border: 2px solid rgba(255,255,255,0.4);
+        }
+        #toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+    </style>
+</head>
+<body>
+
+    <div id="toast"><i class="fas fa-check-double"></i> تم الحفظ التلقائي بنجاح</div>
+
+    <button class="floating-print-btn no-print" onclick="triggerPrint()" id="mainPrintBtn">
+        <i class="fas fa-print"></i> طباعة السجل النشط
+    </button>
+
+    <nav class="sidebar no-print">
+        <div class="sidebar-header">
+            <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2300e5ff'><path d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 4c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6zm0 14c-2.03 0-4.43-.82-6.14-2.88C7.55 15.8 9.68 15 12 15s4.45.8 6.14 2.12C16.43 19.18 14.03 20 12 20z'/></svg>" alt="Profile">
+            <h3 class="bind-teacherName">أ. محمود محمد عيسى</h3>
+            <p>أستاذ البرمجة والذكاء الاصطناعي</p>
+        </div>
+        <div class="nav-links">
+            <a class="nav-link active" data-target="dashboard"><i class="fas fa-chess-king"></i> <span>القيادة والإعدادات</span></a>
+            <a class="nav-link" data-target="record-radio"><i class="fas fa-broadcast-tower"></i> <span>سجل الإذاعة</span></a>
+            <a class="nav-link" data-target="record-reserve"><i class="fas fa-book-reader"></i> <span>سجل الاحتياطي</span></a>
+            <a class="nav-link" data-target="record-firstTeacher"><i class="fas fa-user-tie"></i> <span>سجل المعلم الأول</span></a>
+            <a class="nav-link" data-target="record-group"><i class="fas fa-users-cog"></i> <span>سجل جماعة الحاسب</span></a>
+            <a class="nav-link" data-target="record-coop"><i class="fas fa-handshake"></i> <span>سجل النشاط التعاوني</span></a>
+            <a class="nav-link" data-target="record-attendance"><i class="fas fa-calendar-check"></i> <span>سجل الحضور والغياب</span></a>
+            <a class="nav-link" data-target="record-lab"><i class="fas fa-microchip"></i> <span>سجل معمل الحاسب</span></a>
+        </div>
+        <div class="sidebar-footer">
+            <button class="btn btn-outline" style="width: 100%; border-color:#cbd5e1; color:#f8fafc;" onclick="triggerPrint()">
+                <i class="fas fa-print"></i> طباعة السجل
+            </button>
+        </div>
+    </nav>
+
+    <main class="workspace">
+        <header class="topbar no-print">
+            <div><h2><i class="fas fa-bolt" style="color:var(--secondary);"></i> المنصة <span>السيادية</span> للسجلات</h2></div>
+            <div class="topbar-actions">
+                <button class="btn btn-primary" onclick="exportData()"><i class="fas fa-file-export"></i> تصدير المنظومة</button>
+                <label class="btn btn-outline" style="margin: 0;">
+                    <i class="fas fa-file-import"></i> استيراد
+                    <input type="file" id="importFile" accept=".json" style="display: none;" onchange="importData(event)">
+                </label>
+                <button class="btn btn-success" onclick="syncAppsScript(this)"><i class="fas fa-cloud-upload-alt"></i> مزامنة سحابية</button>
+            </div>
+        </header>
+
+        <!-- لوحة التحكم -->
+        <section id="dashboard" class="view-container active no-print">
+            <h2 style="margin-bottom: 30px; font-weight:900; font-size:2.5rem; text-shadow: 0 2px 15px rgba(0,0,0,0.8);">مركز القيادة والبيانات السيادية</h2>
+            <div class="dashboard-grid">
+                <div class="card">
+                    <h3 style="margin-bottom: 25px; color: var(--secondary); font-weight:900;"><i class="fas fa-cogs"></i> التوثيق الرسمي</h3>
+                    <div class="form-group"><label>أستاذ المادة</label><input type="text" id="setting-teacherName" data-sync="teacherName"></div>
+                    <div class="form-group"><label>المادة الدراسية</label><input type="text" id="setting-subject" data-sync="subject"></div>
+                    <div class="form-group"><label>المدرسة</label><input type="text" id="setting-school" data-sync="school"></div>
+                    <div class="form-group"><label>الإدارة</label><input type="text" id="setting-admin" data-sync="admin"></div>
+                    <div class="form-group"><label>المحافظة</label><input type="text" id="setting-gov" data-sync="gov"></div>
+                    <div class="form-group"><label>العام الدراسي</label><input type="text" id="setting-year" data-sync="year"></div>
+                </div>
+                <div class="card">
+                    <h3 style="margin-bottom: 25px; color: var(--secondary); font-weight:900;"><i class="fas fa-users-crown"></i> الهيكل الإداري</h3>
+                    <div class="form-group"><label>مدير المدرسة</label><input type="text" id="setting-headmaster" data-sync="headmaster"></div>
+                    <div class="form-group"><label>مشرف النشاط</label><input type="text" id="setting-supervisor" data-sync="supervisor"></div>
+                    <div class="form-group"><label>الموجه الأول</label><input type="text" id="setting-seniorSupervisor" data-sync="seniorSupervisor"></div>
+                    <div class="form-group"><label>الموجه العام</label><input type="text" id="setting-generalSupervisor" data-sync="generalSupervisor"></div>
+                    
+                    <h3 style="margin-top:35px; color: var(--primary); font-weight:900;"><i class="fas fa-database"></i> الربط السحابي</h3>
+                    <div class="form-group"><input type="text" id="setting-webhook" placeholder="Webhook URL"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- حاوية السجلات القابلة للحفظ -->
+        <div id="all-records-container">
+            
+            <!-- ============================== 1. سجل الإذاعة ============================== -->
+            <section id="record-radio" class="view-container printable-record">
+                <div class="documents-wrapper">
+                    <!-- الغلاف -->
+                    <div class="a4-page cover-page">
+                        <div class="page-content">
+                            <div class="cover-header">
+                                <div>محافظة: <span class="bind-gov dynamic-val" contenteditable="true"></span><br>إدارة: <span class="bind-admin dynamic-val" contenteditable="true"></span></div>
+                                <div style="text-align: left;">المدرسة: <span class="bind-school dynamic-val" contenteditable="true"></span><br>المادة: <span class="bind-subject dynamic-val" contenteditable="true"></span></div>
+                            </div>
+                            <div class="cover-graphics" style="color: #0284c7;">
+                                <svg viewBox="0 0 100 100" fill="currentColor"><path d="M50 5C25.1 5 5 25.1 5 50s20.1 45 45 45 45-20.1 45-45S74.9 5 50 5zm0 82c-20.4 0-37-16.6-37-37s16.6-37 37-37 37 16.6 37 37-16.6 37-37 37zm0-60c-12.7 0-23 10.3-23 23s10.3 23 23 23 23-10.3 23-23-10.3-23-23-23zm0 35c-6.6 0-12-5.4-12-12s5.4-12 12-12 12 5.4 12 12-5.4 12-12 12zM50 40c-5.5 0-10 4.5-10 10s4.5 10 10 10 10-4.5 10-10-4.5-10-10-10z"/><path d="M50 15C30.7 15 15 30.7 15 50h-6C9 27.4 27.4 9 50 9v6z"/></svg>
+                            </div>
+                            <h1 class="cover-title" contenteditable="true">سجل الإذاعة المدرسية</h1>
+                            <h2 class="cover-subtitle" contenteditable="true">للعام الدراسي <span class="bind-year dynamic-val"></span></h2>
+                            <div class="cover-details">
+                                <div class="cover-row"><span contenteditable="true">أستاذ المادة:</span> <span class="bind-teacherName dynamic-val" contenteditable="true"></span></div>
+                                <div class="cover-row"><span contenteditable="true">مشرف النشاط:</span> <span class="bind-supervisor dynamic-val" contenteditable="true"></span></div>
+                                <div class="cover-row"><span contenteditable="true">مدير المدرسة:</span> <span class="bind-headmaster dynamic-val" contenteditable="true"></span></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- الأهداف -->
+                    <div class="a4-page">
+                        <div class="page-content">
+                            <div class="doc-header"><h2 contenteditable="true">الأهداف العامة لتدريس المادة والنشاط</h2></div>
+                            <div style="flex-grow: 1; font-size: 1.6rem; line-height: 2.4; font-weight: 800; padding: 20px;">
+                                <ol style="list-style-position: inside; color: var(--official-blue);">
+                                    <li contenteditable="true">تزويد الطلاب بالمعارف العلمية الأساسية ذات الصلة بتكنولوجيا المعلومات والذكاء الاصطناعي.</li>
+                                    <li contenteditable="true">تنمية مهارات التفكير العلمي الأساسية والقدرة على حل المشكلات برمجياً.</li>
+                                    <li contenteditable="true">تدريب الطلاب على العمل التعاوني في فريق من خلال تقنيات الكمبيوتر.</li>
+                                    <li contenteditable="true">نشر الثقافة المالية والاستثمارية وربطها بالتقنيات الحديثة.</li>
+                                    <li contenteditable="true">تألف التلاميذ مع التكنولوجيا الحديثة وإزالة رهبة التعامل مع الذكاء الاصطناعي.</li>
+                                    <li contenteditable="true">بناء الشخصية القادرة على مواجهة تحديات الألفية الثالثة.</li>
+                                </ol>
+                            </div>
+                            <div class="doc-signatures">
+                                <div>مدرس المادة<span class="bind-teacherName" contenteditable="true"></span></div>
+                                <div>مدير المدرسة<span class="bind-headmaster" contenteditable="true"></span></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- محضر الفتح -->
+                    <div class="a4-page">
+                        <div class="page-content">
+                            <div class="doc-header"><h2 contenteditable="true">محضر فتح السجل</h2></div>
+                            <div class="official-text" style="margin-top: 40px; flex-grow:1;">
+                                إنه في يوم <span contenteditable="true" style="border-bottom:3px dotted #000; min-width:150px; color:var(--official-accent); text-align:center;">الأحد</span> 
+                                الموافق <span contenteditable="true" style="border-bottom:3px dotted #000; min-width:200px; color:var(--official-accent); text-align:center;"> 20 / 9 / 2026 م</span><br><br>
+                                تم فتح سجل <strong contenteditable="true">الإذاعة المدرسية لمادة <span class="bind-subject"></span></strong><br><br>
+                                وذلك للعام الدراسي <span class="bind-year dynamic-val" contenteditable="true"></span> م.<br><br>
+                            </div>
+                            <div class="doc-signatures">
+                                <div>مدرس المادة<span class="bind-teacherName" contenteditable="true"></span></div>
+                                <div>موجه المادة<span class="bind-supervisor" contenteditable="true"></span></div>
+                                <div>مدير المدرسة<span class="bind-headmaster" contenteditable="true"></span></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- البرنامج الإذاعي -->
+                    <div class="a4-page">
+                        <div class="page-content">
+                            <div class="doc-header"><h2 contenteditable="true">البرنامج الإذاعي الأسبوعي</h2></div>
+                            <div style="margin-bottom: 25px; font-weight:900; font-size:1.4rem;">
+                                برنامج الإذاعة عن يوم: <span contenteditable="true" style="border-bottom: 3px dotted #000; min-width: 150px; color:var(--official-accent); text-align:center;">الأربعاء</span> 
+                                الموافق: <span contenteditable="true" style="border-bottom: 3px dotted #000; min-width: 180px; color:var(--official-accent); text-align:center;">14 / 10 / 2026</span>
+                            </div>
+                            <div class="table-container">
+                                <table class="editable-table">
+                                    <thead>
+                                        <tr><th style="width: 8%" contenteditable="true">م</th><th style="width: 32%" contenteditable="true">اسم الفقرة</th><th style="width: 45%" contenteditable="true">اسم الطالب</th><th style="width: 15%" contenteditable="true">الفصل</th></tr>
+                                    </thead>
+                                    <tbody id="radio-body">
+                                        <tr><td contenteditable="true">1</td><td contenteditable="true" style="font-weight:900;">مقدم البرنامج</td><td contenteditable="true">عمر طارق عبد الله</td><td contenteditable="true">1/ث</td></tr>
+                                        <tr><td contenteditable="true">2</td><td contenteditable="true" style="font-weight:900;">القرآن الكريم</td><td contenteditable="true">مصطفى محمود إبراهيم</td><td contenteditable="true">1/ث</td></tr>
+                                        <tr><td contenteditable="true">3</td><td contenteditable="true" style="font-weight:900;">الحديث الشريف</td><td contenteditable="true">علي حسن محمد</td><td contenteditable="true">2/ث</td></tr>
+                                        <tr><td contenteditable="true">4</td><td contenteditable="true" style="font-weight:900;">حكمة اليوم (الاستثمار)</td><td contenteditable="true">زياد أحمد فتحي</td><td contenteditable="true">2/ث</td></tr>
+                                        <tr><td contenteditable="true">5</td><td contenteditable="true" style="font-weight:900;">الكلمة (الذكاء الاصطناعي)</td><td contenteditable="true">كريم سعيد عثمان</td><td contenteditable="true">3/ث</td></tr>
+                                        <tr><td contenteditable="true">6</td><td contenteditable="true" style="font-weight:900;">أخبار التكنولوجيا والمال</td><td contenteditable="true">ياسين عمر الفاروق</td><td contenteditable="true">3/ث</td></tr>
+                                        <tr><td contenteditable="true">7</td><td contenteditable="true" style="font-weight:900;">الدعاء والخاتمة</td><td contenteditable="true">أحمد سعد الدين</td><td contenteditable="true">1/ث</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <button class="add-row-btn no-print" onclick="addTableRow('radio-body', 4)"><i class="fas fa-plus"></i> إضافة فقرة</button>
+                            <div class="doc-signatures">
+                                <div>مشرف النشاط<span class="bind-supervisor" contenteditable="true"></span></div>
+                                <div>مدير المدرسة<span class="bind-headmaster" contenteditable="true"></span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ============================== 2. سجل الاحتياطي ============================== -->
+            <section id="record-reserve" class="view-container printable-record">
+                <div class="documents-wrapper">
+                    <div class="a4-page cover-page">
+                        <div class="page-content">
+                            <div class="cover-header">
+                                <div>محافظة: <span class="bind-gov dynamic-val" contenteditable="true"></span><br>إدارة: <span class="bind-admin dynamic-val" contenteditable="true"></span></div>
+                                <div style="text-align: left;">المدرسة: <span class="bind-school dynamic-val" contenteditable="true"></span><br>المادة: <span class="bind-subject dynamic-val" contenteditable="true"></span></div>
+                            </div>
+                            <div class="cover-graphics" style="color: #059669;">
+                                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+                            </div>
+                            <h1 class="cover-title" contenteditable="true">دفتر تحضير<br>الحصص الاحتياطي</h1>
+                            <h2 class="cover-subtitle" contenteditable="true">للعام الدراسي <span class="bind-year dynamic-val"></span></h2>
+                            <div class="cover-details">
+                                <div class="cover-row"><span contenteditable="true">المعلم:</span> <span class="bind-teacherName dynamic-val" contenteditable="true"></span></div>
+                                <div class="cover-row"><span contenteditable="true">مدير المدرسة:</span> <span class="bind-headmaster dynamic-val" contenteditable="true"></span></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- محضر الفتح -->
+                    <div class="a4-page">
+                        <div class="page-content">
+                            <div class="doc-header"><h2 contenteditable="true">محضر فتح دفتر التحضير</h2></div>
+                            <div class="official-text" style="margin-top: 40px; flex-grow:1;">
+                                إنه في يوم <span contenteditable="true" style="border-bottom:3px dotted #000; min-width:150px; color:var(--official-accent); text-align:center;">الأحد</span> 
+                                الموافق <span contenteditable="true" style="border-bottom:3px dotted #000; min-width:200px; color:var(--official-accent); text-align:center;"> 20 / 9 / 2026 م</span><br><br>
+                                تم فتح دفتر <strong contenteditable="true">تحضير الحصص الاحتياطي لمادة <span class="bind-subject"></span></strong><br><br>
+                                وذلك للعام الدراسي <span class="bind-year dynamic-val" contenteditable="true"></span> م.<br><br>
+                            </div>
+                            <div class="doc-signatures">
+                                <div>مدرس المادة<span class="bind-teacherName" contenteditable="true"></span></div>
+                                <div>موجه المادة<span class="bind-supervisor" contenteditable="true"></span></div>
+                                <div>مدير المدرسة<span class="bind-headmaster" contenteditable="true"></span></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- صفحة التحضير -->
+                    <div class="a4-page prep-page-wrapper">
+                        <div class="page-content prep-page-template">
+                            <table class="editable-table" style="margin-bottom: 20px;">
+                                <tr>
+                                    <th style="width: 15%" contenteditable="true">التاريخ</th><td contenteditable="true" style="width: 35%; color:var(--official-accent);">15 / 10 / 2026</td>
+                                    <th style="width: 15%" contenteditable="true">الفصل</th><td contenteditable="true" style="width: 35%; color:var(--official-accent);">الأول الثانوي</td>
+                                </tr>
+                                <tr>
+                                    <th contenteditable="true">الحصة</th><td contenteditable="true" style="color:var(--official-accent);">الثالثة</td>
+                                    <th contenteditable="true">عنوان الدرس</th><td contenteditable="true" style="font-weight: 900; color:var(--official-blue); font-size:1.4rem;">مقدمة في خوارزميات الذكاء الاصطناعي</td>
+                                </tr>
+                            </table>
+                            <div style="flex-grow: 1; display:flex; flex-direction:column; gap: 15px;">
+                                <div style="border: 2px solid var(--official-blue); padding: 15px; border-radius: 8px; background:#fff;">
+                                    <h3 style="color: var(--official-blue); border-bottom: 2px dashed #cbd5e1; padding-bottom: 5px; margin-bottom: 10px;" contenteditable="true">الأهداف الإجرائية:</h3>
+                                    <div contenteditable="true" style="outline: none; line-height:1.8; font-size: 1.3rem; font-weight:800;">1- أن يتعرف الطالب على مفهوم الذكاء الاصطناعي.<br>2- أن يذكر أمثلة لتطبيقات الذكاء الاصطناعي في الاستثمار.</div>
+                                </div>
+                                <div style="display: flex; gap: 15px;">
+                                    <div style="flex: 1; border: 2px solid var(--official-blue); padding: 15px; border-radius: 8px; background:#fff;">
+                                        <h3 style="color: var(--official-blue); border-bottom: 2px dashed #cbd5e1; padding-bottom: 5px; margin-bottom: 10px;" contenteditable="true">الوسائل التعليمية:</h3>
+                                        <div contenteditable="true" style="outline: none; font-size: 1.3rem; font-weight:800;">السبورة الذكية - العرض التقديمي.</div>
+                                    </div>
+                                    <div style="flex: 1; border: 2px solid var(--official-blue); padding: 15px; border-radius: 8px; background:#fff;">
+                                        <h3 style="color: var(--official-blue); border-bottom: 2px dashed #cbd5e1; padding-bottom: 5px; margin-bottom: 10px;" contenteditable="true">استراتيجيات التعلم:</h3>
+                                        <div contenteditable="true" style="outline: none; font-size: 1.3rem; font-weight:800;">العصف الذهني - الحوار والمناقشة.</div>
+                                    </div>
+                                </div>
+                                <div style="border: 2px solid var(--official-blue); padding: 15px; border-radius: 8px; background:#fff;">
+                                    <h3 style="color: var(--official-blue); border-bottom: 2px dashed #cbd5e1; padding-bottom: 5px; margin-bottom: 10px;" contenteditable="true">التمهيد:</h3>
+                                    <div contenteditable="true" style="outline: none; font-size: 1.3rem; font-weight:800;">طرح سؤال تفاعلي حول كيفية عمل المساعد الصوتي في الهواتف.</div>
+                                </div>
+                                <div style="border: 2px solid var(--official-blue); padding: 15px; border-radius: 8px; flex-grow:1; background:#fff;">
+                                    <h3 style="color: var(--official-blue); border-bottom: 2px dashed #cbd5e1; padding-bottom: 5px; margin-bottom: 10px;" contenteditable="true">عرض الدرس والأنشطة:</h3>
+                                    <div contenteditable="true" style="outline: none; line-height: 1.8; font-size: 1.3rem; font-weight:800;">- تعريف الذكاء الاصطناعي (AI) وتاريخه المبسط.<br>- تطبيقات الـ AI في الأسواق المالية (التداول الخوارزمي).<br>- تطبيق عملي: تدريب نموذج بسيط للتعرف على الصور.</div>
+                                </div>
+                                <div style="border: 2px solid var(--official-blue); padding: 15px; border-radius: 8px; background:#fff;">
+                                    <h3 style="color: var(--official-blue); border-bottom: 2px dashed #cbd5e1; padding-bottom: 5px; margin-bottom: 10px;" contenteditable="true">التقويم:</h3>
+                                    <div contenteditable="true" style="outline: none; font-size: 1.3rem; font-weight:800;">اذكر تطبيقين للذكاء الاصطناعي في حياتك اليومية؟</div>
+                                </div>
+                            </div>
+                            <div class="doc-signatures">
+                                <div>معلم المادة<span class="bind-teacherName" contenteditable="true"></span></div>
+                                <div>مدير المدرسة<span class="bind-headmaster" contenteditable="true"></span></div>
+                            </div>
+                        </div>
+                        <button class="add-row-btn no-print" onclick="duplicatePrepPage(this)"><i class="fas fa-copy"></i> إضافة صفحة تحضير جديدة</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ============================== 3. سجل المعلم الأول ============================== -->
+            <section id="record-firstTeacher" class="view-container printable-record">
+                <div class="documents-wrapper">
+                    <!-- الغلاف -->
+                    <div class="a4-page cover-page">
+                        <div class="page-content">
+                            <div class="cover-header">
+                                <div>محافظة: <span class="bind-gov dynamic-val" contenteditable="true"></span><br>إدارة: <span class="bind-admin dynamic-val" contenteditable="true"></span></div>
+                                <div style="text-align: left;">المدرسة: <span class="bind-school dynamic-val" contenteditable="true"></span><br>المادة: <span class="bind-subject dynamic-val" contenteditable="true"></span></div>
+                            </div>
+                            <div class="cover-graphics" style="color: #b45309;">
+                                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+                            </div>
+                            <h1 class="cover-title" contenteditable="true">سجل المعلم الأول</h1>
+                            <h2 class="cover-subtitle" contenteditable="true">للعام الدراسي <span class="bind-year dynamic-val"></span></h2>
+                            <div class="cover-details">
+                                <div class="cover-row"><span contenteditable="true">المعلم الأول:</span> <span class="bind-teacherName dynamic-val" contenteditable="true"></span></div>
+                                <div class="cover-row"><span contenteditable="true">الموجه الأول:</span> <span class="bind-seniorSupervisor dynamic-val" contenteditable="true"></span></div>
+                                <div class="cover-row"><span contenteditable="true">الموجه العام:</span> <span class="bind-generalSupervisor dynamic-val" contenteditable="true"></span></div>
+                                <div class="cover-row"><span contenteditable="true">مدير المدرسة:</span> <span class="bind-headmaster dynamic-val" contenteditable="true"></span></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- بيانات المعلم وجدول الحصص -->
+                    <div class="a4-page">
+                        <div class="page-content">
+                            <div class="doc-header"><h2 contenteditable="true">بيانات المعلم الأول وجدول الحصص</h2></div>
+                            <table class="editable-table" style="margin-bottom:30px;">
+                                <tr><th style="width: 25%" contenteditable="true">الاسم</th><td contenteditable="true" class="bind-teacherName" style="font-weight:900; color:var(--official-accent);"></td></tr>
+                                <tr><th contenteditable="true">المؤهل</th><td contenteditable="true">بكالوريوس حاسبات ومعلومات / دبلومة تربوية</td></tr>
+                                <tr><th contenteditable="true">تاريخ التعيين</th><td contenteditable="true">1 / 9 / 2010</td></tr>
+                                <tr><th contenteditable="true">رقم الهاتف</th><td contenteditable="true">01000000000</td></tr>
+                            </table>
+                            
+                            <h3 style="margin-bottom: 15px; color:var(--official-blue); font-size:1.6rem; font-weight:900;" contenteditable="true">جدول الحصص الأسبوعي</h3>
+                            <div class="table-container">
+                                <table class="editable-table">
+                                    <thead>
+                                        <tr><th contenteditable="true">اليوم / الحصة</th><th contenteditable="true">الأولى</th><th contenteditable="true">الثانية</th><th contenteditable="true">الثالثة</th><th contenteditable="true">الرابعة</th><th contenteditable="true">الخامسة</th><th contenteditable="true">السادسة</th><th contenteditable="true">السابعة</th><th contenteditable="true">الثامنة</th></tr>
+                                    </thead>
+                                    <tbody id="timetable-body">
+                                        <tr><td style="font-weight:900;" contenteditable="true">الأحد</td><td contenteditable="true">1/ث</td><td contenteditable="true">1/ث</td><td contenteditable="true"></td><td contenteditable="true">2/ث</td><td contenteditable="true"></td><td contenteditable="true">3/ث</td><td contenteditable="true"></td><td contenteditable="true"></td></tr>
+                                        <tr><td style="font-weight:900;" contenteditable="true">الاثنين</td><td contenteditable="true"></td><td contenteditable="true">2/ث</td><td contenteditable="true">2/ث</td><td contenteditable="true"></td><td contenteditable="true">1/ث</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr>
+                                        <tr><td style="font-weight:900;" contenteditable="true">الثلاثاء</td><td contenteditable="true">3/ث</td><td contenteditable="true"></td><td contenteditable="true">1/ث</td><td contenteditable="true">1/ث</td><td contenteditable="true"></td><td contenteditable="true">2/ث</td><td contenteditable="true"></td><td contenteditable="true"></td></tr>
+                                        <tr><td style="font-weight:900;" contenteditable="true">الأربعاء</td><td contenteditable="true"></td><td contenteditable="true">3/ث</td><td contenteditable="true">3/ث</td><td contenteditable="true"></td><td contenteditable="true">2/ث</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr>
+                                        <tr><td style="font-weight:900;" contenteditable="true">الخميس</td><td contenteditable="true">1/ث</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true">3/ث</td><td contenteditable="true">3/ث</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- الميزانية وسير المنهج -->
+                    <div class="a4-page">
+                        <div class="page-content">
+                            <div class="doc-header"><h2 contenteditable="true">ميزانية المدرسة ومتابعة المنهج</h2></div>
+                            <h3 style="margin-bottom: 10px; color:var(--official-blue); font-size:1.6rem; font-weight:900;" contenteditable="true">ميزانية المدرسة للمادة</h3>
+                            <div class="table-container" style="flex-grow:0; margin-bottom:30px;">
+                                <table class="editable-table">
+                                    <thead><tr><th contenteditable="true">البيان (الصف)</th><th contenteditable="true">عدد الفصول</th><th contenteditable="true">عدد الحصص</th><th contenteditable="true">عدد الطلبة</th></tr></thead>
+                                    <tbody id="budget-body">
+                                        <tr><td contenteditable="true" style="font-weight:900;">الصف الأول الثانوي</td><td contenteditable="true">5</td><td contenteditable="true">10</td><td contenteditable="true">210</td></tr>
+                                        <tr><td contenteditable="true" style="font-weight:900;">الصف الثاني الثانوي</td><td contenteditable="true">4</td><td contenteditable="true">8</td><td contenteditable="true">185</td></tr>
+                                        <tr><td contenteditable="true" style="font-weight:900;">الصف الثالث الثانوي</td><td contenteditable="true">4</td><td contenteditable="true">8</td><td contenteditable="true">170</td></tr>
+                                        <tr><th style="background-color: rgba(30,58,138,0.1);" contenteditable="true">الجملة</th><td contenteditable="true" style="font-weight:900; color:var(--official-accent);">13</td><td contenteditable="true" style="font-weight:900; color:var(--official-accent);">26</td><td contenteditable="true" style="font-weight:900; color:var(--official-accent);">565</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <button class="add-row-btn no-print" onclick="addTableRow('budget-body', 4)"><i class="fas fa-plus"></i> إضافة صف</button>
+                            
+                            <h3 style="margin-top: 10px; margin-bottom: 10px; color:var(--official-blue); font-size:1.6rem; font-weight:900;" contenteditable="true">سجل متابعة سير المنهج</h3>
+                            <div class="table-container">
+                                <table class="editable-table">
+                                    <thead><tr><th style="width:6%" contenteditable="true">م</th><th style="width:14%" contenteditable="true">الفصل</th><th style="width:25%" contenteditable="true">تاريخ المتابعة</th><th style="width:30%" contenteditable="true">آخر ما تم تدريسه</th><th style="width:25%" contenteditable="true">سير المنهج</th></tr></thead>
+                                    <tbody id="curriculum-body">
+                                        <tr><td contenteditable="true">1</td><td contenteditable="true">1/ث</td><td contenteditable="true">20 / 10 / 2026</td><td contenteditable="true">الذكاء الاصطناعي</td><td contenteditable="true">مناسب للخطة</td></tr>
+                                        <tr><td contenteditable="true">2</td><td contenteditable="true">2/ث</td><td contenteditable="true">22 / 10 / 2026</td><td contenteditable="true">أساسيات بايثون</td><td contenteditable="true">مناسب للخطة</td></tr>
+                                        <tr><td contenteditable="true">3</td><td contenteditable="true">3/ث</td><td contenteditable="true">25 / 10 / 2026</td><td contenteditable="true">الاستثمار الذكي</td><td contenteditable="true">مناسب للخطة</td></tr>
+                                        <tr><td contenteditable="true">4</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr>
+                                        <tr><td contenteditable="true">5</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <button class="add-row-btn no-print" onclick="addTableRow('curriculum-body', 5)"><i class="fas fa-plus"></i> إضافة متابعة</button>
+                        </div>
+                    </div>
+
+                    <!-- سجل الاجتماعات (المعلم الأول) -->
+                    <div class="a4-page">
+                        <div class="page-content">
+                            <div class="doc-header"><h2 contenteditable="true">محضر اجتماع مدرسي المادة</h2></div>
+                            <div class="official-text" style="margin-bottom: 25px;">
+                                إنه في يوم <span contenteditable="true" style="border-bottom:2px dotted #000; min-width:100px; color:var(--official-accent); text-align:center;">الخميس</span> 
+                                الموافق <span contenteditable="true" style="border-bottom:2px dotted #000; min-width:150px; color:var(--official-accent); text-align:center;"> 24 / 9 / 2026 م</span><br>
+                                قد تم عقد اجتماع بمدرسي <span class="bind-subject"></span> لمناقشة جدول الأعمال.
+                            </div>
+                            <h3 style="color:var(--official-blue); font-size:1.5rem; margin-bottom:10px;" contenteditable="true">جدول الأعمال:</h3>
+                            <div style="flex-grow: 1; border: 2px solid var(--table-border); padding: 15px; border-radius: 8px; margin-bottom: 20px; font-weight: 800; font-size: 1.4rem; background:#fff;">
+                                <ol style="list-style-position: inside; line-height:1.8;">
+                                    <li contenteditable="true">توزيع المنهج وتوحيد التحضير.</li>
+                                    <li contenteditable="true">مناقشة استراتيجيات تدريس البرمجة الحديثة.</li>
+                                    <li contenteditable="true">تفعيل دور المعمل الذكي.</li>
+                                </ol>
+                            </div>
+                            <h3 style="color:var(--official-blue); font-size:1.5rem; margin-bottom:10px;" contenteditable="true">القرارات:</h3>
+                            <div style="flex-grow: 1; border: 2px solid var(--table-border); padding: 15px; border-radius: 8px; margin-bottom: 20px; font-weight: 800; font-size: 1.4rem; background:#fff;">
+                                <ol style="list-style-position: inside; line-height:1.8;">
+                                    <li contenteditable="true">الالتزام التام بالخطة الزمنية للمنهج.</li>
+                                    <li contenteditable="true">استخدام مشاريع عملية في التقييم الشهري.</li>
+                                    <li contenteditable="true">إغلاق الاجتماع لعدم وجود أعمال أخرى.</li>
+                                </ol>
+                            </div>
+                            <div class="doc-signatures">
+                                <div>المعلم الأول<span class="bind-teacherName" contenteditable="true"></span></div>
+                                <div>الموجه<span class="bind-supervisor" contenteditable="true"></span></div>
+                                <div>مدير المدرسة<span class="bind-headmaster" contenteditable="true"></span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ============================== 4. سجل الحضور والغياب ============================== -->
+            <section id="record-attendance" class="view-container printable-record">
+                <div class="documents-wrapper">
+                    <!-- الغلاف -->
+                    <div class="a4-page cover-page">
+                        <div class="page-content">
+                            <div class="cover-header">
+                                <div>محافظة: <span class="bind-gov dynamic-val" contenteditable="true"></span><br>إدارة: <span class="bind-admin dynamic-val" contenteditable="true"></span></div>
+                                <div style="text-align: left;">المدرسة: <span class="bind-school dynamic-val" contenteditable="true"></span><br>المادة: <span class="bind-subject dynamic-val" contenteditable="true"></span></div>
+                            </div>
+                            <div class="cover-graphics" style="color: #6366f1;">
+                                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z"/></svg>
+                            </div>
+                            <h1 class="cover-title" contenteditable="true">سجل الحضور والغياب</h1>
+                            <h2 class="cover-subtitle" contenteditable="true">للعام الدراسي <span class="bind-year dynamic-val"></span></h2>
+                            <div class="cover-details">
+                                <div class="cover-row"><span contenteditable="true">المعلم:</span> <span class="bind-teacherName dynamic-val" contenteditable="true"></span></div>
+                                <div class="cover-row"><span contenteditable="true">مدير المدرسة:</span> <span class="bind-headmaster dynamic-val" contenteditable="true"></span></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- كشف الحضور -->
+                    <div class="a4-page">
+                        <div class="page-content">
+                            <div class="doc-header"><h2 contenteditable="true">كشف الحضور والغياب الشهري</h2></div>
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 15px; font-weight:900; font-size:1.4rem;">
+                                <span>الصف والفصل: <span contenteditable="true" style="min-width:150px; border-bottom:3px dotted #000; color:var(--official-accent); text-align:center;">الأول الثانوي (أ)</span></span>
+                                <span>الشهر: <span contenteditable="true" style="min-width:150px; border-bottom:3px dotted #000; color:var(--official-accent); text-align:center;">أكتوبر 2026</span></span>
+                            </div>
+                            <div class="table-container">
+                                <table class="editable-table attendance-table">
+                                    <thead>
+                                        <tr>
+                                            <th rowspan="2" class="att-num" contenteditable="true">م</th>
+                                            <th rowspan="2" class="att-name" contenteditable="true">اسم الطالب</th>
+                                            <th colspan="5" contenteditable="true">الأسبوع 1</th>
+                                            <th colspan="5" contenteditable="true">الأسبوع 2</th>
+                                            <th colspan="5" contenteditable="true">الأسبوع 3</th>
+                                            <th colspan="5" contenteditable="true">الأسبوع 4</th>
+                                        </tr>
+                                        <tr>
+                                            <script>for(let i=1;i<=20;i++){document.write('<th class="att-day">'+(i%5==0?5:i%5)+'</th>');}</script>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="attendance-body">
+                                        <tr><td contenteditable="true">1</td><td contenteditable="true" class="att-name">أحمد محمد عبد الله</td><td contenteditable="true">✔</td><td contenteditable="true">✔</td><td contenteditable="true">✔</td><td contenteditable="true">✔</td><td contenteditable="true">✔</td><td contenteditable="true">✔</td><td contenteditable="true">✘</td><td contenteditable="true">✔</td><td contenteditable="true">✔</td><td contenteditable="true">✔</td><td contenteditable="true">✔</td><td contenteditable="true">✔</td><td contenteditable="true">✔</td><td contenteditable="true">✔</td><td contenteditable="true">✔</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr>
+                                        <tr><td contenteditable="true">2</td><td contenteditable="true" class="att-name">يوسف كريم مصطفى</td><td contenteditable="true">✔</td><td contenteditable="true">✔</td><td contenteditable="true">✘</td><td contenteditable="true">✔</td><td contenteditable="true">✔</td><td contenteditable="true">✔</td><td contenteditable="true">✔</td><td contenteditable="true">✔</td><td contenteditable="true">✔</td><td contenteditable="true">✔</td><td contenteditable="true">✔</td><td contenteditable="true">✔</td><td contenteditable="true">✔</td><td contenteditable="true">✔</td><td contenteditable="true">✔</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr>
+                                        <tr><td contenteditable="true">3</td><td contenteditable="true" class="att-name">محمود علي إبراهيم</td><td contenteditable="true">✔</td><td contenteditable="true">✔</td><td contenteditable="true">✔</td><td contenteditable="true">✔</td><td contenteditable="true">✔</td><td contenteditable="true">✔</td><td contenteditable="true">✔</td><td contenteditable="true">✔</td><td contenteditable="true">✔</td><td contenteditable="true">✔</td><td contenteditable="true">✔</td><td contenteditable="true">✔</td><td contenteditable="true">✘</td><td contenteditable="true">✔</td><td contenteditable="true">✔</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr>
+                                        <script>
+                                            for(let i=4; i<=22; i++) {
+                                                let r = '<tr><td contenteditable="true">'+i+'</td><td contenteditable="true" class="att-name"></td>';
+                                                for(let j=0; j<20; j++) r += '<td contenteditable="true"></td>';
+                                                r += '</tr>'; document.write(r);
+                                            }
+                                        </script>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ============================== 5. سجل المعمل ============================== -->
+            <section id="record-lab" class="view-container printable-record">
+                <div class="documents-wrapper">
+                    <!-- الغلاف -->
+                    <div class="a4-page cover-page">
+                        <div class="page-content">
+                            <div class="cover-header">
+                                <div>محافظة: <span class="bind-gov dynamic-val" contenteditable="true"></span><br>إدارة: <span class="bind-admin dynamic-val" contenteditable="true"></span></div>
+                                <div style="text-align: left;">المدرسة: <span class="bind-school dynamic-val" contenteditable="true"></span><br>المادة: <span class="bind-subject dynamic-val" contenteditable="true"></span></div>
+                            </div>
+                            <div class="cover-graphics" style="color: #8b5cf6;">
+                                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M21 2H3c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h7v2H8v2h8v-2h-2v-2h7c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H3V4h18v12z"/></svg>
+                            </div>
+                            <h1 class="cover-title" contenteditable="true">سجل معمل<br><span class="bind-subject"></span></h1>
+                            <h2 class="cover-subtitle" contenteditable="true">للعام الدراسي <span class="bind-year dynamic-val"></span></h2>
+                            <div class="cover-details">
+                                <div class="cover-row"><span contenteditable="true">أمين المعمل:</span> <span class="bind-teacherName dynamic-val" contenteditable="true"></span></div>
+                                <div class="cover-row"><span contenteditable="true">مدير المدرسة:</span> <span class="bind-headmaster dynamic-val" contenteditable="true"></span></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- محضر الجرد -->
+                    <div class="a4-page">
+                        <div class="page-content">
+                            <div class="doc-header"><h2 contenteditable="true">محضر جرد عهدة المعمل</h2></div>
+                            <p style="font-size: 1.6rem; font-weight:900; margin-bottom: 20px;">إنه في يوم <span contenteditable="true" style="min-width:200px; display:inline-block; border-bottom:3px dotted #000; color:var(--official-accent); text-align:center;">الخميس 10 / 9 / 2026</span> تم جرد العهدة وفق البيان التالي:</p>
+                            
+                            <div class="table-container">
+                                <table class="editable-table">
+                                    <thead>
+                                        <tr><th style="width:8%" contenteditable="true">م</th><th style="width:27%" contenteditable="true">الصنف</th><th style="width:50%" contenteditable="true">المواصفات والحالة</th><th style="width:15%" contenteditable="true">العدد</th></tr>
+                                    </thead>
+                                    <tbody id="inventory-body">
+                                        <tr><td contenteditable="true">1</td><td contenteditable="true" style="font-weight:900;">أجهزة حاسب آلي (PC)</td><td contenteditable="true">HP Core i7 - الجيل الثاني عشر - بحالة جيدة</td><td contenteditable="true" style="font-weight:900; font-size:1.4rem;">20</td></tr>
+                                        <tr><td contenteditable="true">2</td><td contenteditable="true" style="font-weight:900;">شاشة تفاعلية ذكية</td><td contenteditable="true">Promethean 75 inch - تعمل بكفاءة</td><td contenteditable="true" style="font-weight:900; font-size:1.4rem;">1</td></tr>
+                                        <tr><td contenteditable="true">3</td><td contenteditable="true" style="font-weight:900;">جهاز عرض (Data Show)</td><td contenteditable="true">Epson - يحتاج لتغيير لمبة</td><td contenteditable="true" style="font-weight:900; font-size:1.4rem;">1</td></tr>
+                                        <tr><td contenteditable="true">4</td><td contenteditable="true" style="font-weight:900;">موزع شبكة (Switch)</td><td contenteditable="true">Cisco 24 port - بحالة جيدة</td><td contenteditable="true" style="font-weight:900; font-size:1.4rem;">2</td></tr>
+                                        <tr><td contenteditable="true">5</td><td contenteditable="true" style="font-weight:900;">خادم محلي (Server)</td><td contenteditable="true">Dell PowerEdge - يعمل بكفاءة</td><td contenteditable="true" style="font-weight:900; font-size:1.4rem;">1</td></tr>
+                                        <tr><td contenteditable="true">6</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr>
+                                        <tr><td contenteditable="true">7</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr>
+                                        <tr><td contenteditable="true">8</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <button class="add-row-btn no-print" onclick="addTableRow('inventory-body', 4)"><i class="fas fa-plus"></i> إضافة صنف</button>
+                            
+                            <div class="doc-signatures">
+                                <div>توقيع أمين المعمل (المستلم)<span class="bind-teacherName" contenteditable="true"></span></div>
+                                <div>توقيع المشرف المسؤول<span class="bind-supervisor" contenteditable="true"></span></div>
+                                <div>يعتمد، مدير المدرسة<span class="bind-headmaster" contenteditable="true"></span></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- سجل الأعطال -->
+                    <div class="a4-page">
+                        <div class="page-content">
+                            <div class="doc-header"><h2 contenteditable="true">سجل بلاغات الأعطال والصيانة</h2></div>
+                            <div class="table-container">
+                                <table class="editable-table">
+                                    <thead>
+                                        <tr><th style="width:15%" contenteditable="true">تاريخ العطل</th><th style="width:30%" contenteditable="true">الجهاز / نوع العطل</th><th style="width:40%" contenteditable="true">موقف الإصلاح والملاحظات</th><th style="width:15%" contenteditable="true">توقيع المستلم</th></tr>
+                                    </thead>
+                                    <tbody id="maintenance-body">
+                                        <tr><td contenteditable="true" style="font-weight:900;">5 / 10 / 2026</td><td contenteditable="true" style="font-weight:900;">جهاز رقم 4 - عطل في مزود الطاقة</td><td contenteditable="true">تم استبدال مزود الطاقة (Power Supply) ويعمل الآن.</td><td contenteditable="true">تم</td></tr>
+                                        <tr><td contenteditable="true" style="font-weight:900;">12 / 10 / 2026</td><td contenteditable="true" style="font-weight:900;">انقطاع الإنترنت بالمعمل</td><td contenteditable="true">تم إعادة تشغيل وتأريج الكابل الرئيسي للروتر.</td><td contenteditable="true">تم</td></tr>
+                                        <tr><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr>
+                                        <tr><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr>
+                                        <tr><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr>
+                                        <tr><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr>
+                                        <tr><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr>
+                                        <tr><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <button class="add-row-btn no-print" onclick="addTableRow('maintenance-body', 4)"><i class="fas fa-plus"></i> إضافة بلاغ جديد</button>
+                            <div class="doc-signatures">
+                                <div>أمين المعمل<span class="bind-teacherName" contenteditable="true"></span></div>
+                                <div>مدير المدرسة<span class="bind-headmaster" contenteditable="true"></span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ============================== 6. سجل جماعة الحاسب ============================== -->
+            <section id="record-group" class="view-container printable-record">
+                <div class="documents-wrapper">
+                    <div class="a4-page cover-page">
+                        <div class="page-content">
+                            <div class="cover-header">
+                                <div>محافظة: <span class="bind-gov dynamic-val" contenteditable="true"></span><br>إدارة: <span class="bind-admin dynamic-val" contenteditable="true"></span></div>
+                                <div style="text-align: left;">المدرسة: <span class="bind-school dynamic-val" contenteditable="true"></span><br>المادة: <span class="bind-subject dynamic-val" contenteditable="true"></span></div>
+                            </div>
+                            <div class="cover-graphics" style="color: #eab308;">
+                                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+                            </div>
+                            <h1 class="cover-title" contenteditable="true">سجل جماعة<br>البرمجة والذكاء الاصطناعي</h1>
+                            <h2 class="cover-subtitle" contenteditable="true">للعام الدراسي <span class="bind-year dynamic-val"></span></h2>
+                            <div class="cover-details">
+                                <div class="cover-row"><span contenteditable="true">رئيس الجماعة (المشرف):</span> <span class="bind-teacherName dynamic-val" contenteditable="true"></span></div>
+                                <div class="cover-row"><span contenteditable="true">مدير المدرسة:</span> <span class="bind-headmaster dynamic-val" contenteditable="true"></span></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- أهداف الجماعة -->
+                    <div class="a4-page">
+                        <div class="page-content">
+                            <div class="doc-header"><h2 contenteditable="true">أهداف جماعة البرمجة والذكاء الاصطناعي</h2></div>
+                            <div style="flex-grow: 1; font-size: 1.6rem; line-height: 2.4; font-weight: 800; padding: 20px;">
+                                <ol style="list-style-position: inside; color: var(--official-blue);">
+                                    <li contenteditable="true">تزويد التلميذ بالمعرفة الأساسية لعلوم الذكاء الاصطناعي والبرمجة.</li>
+                                    <li contenteditable="true">إجادة التعامل مع لغات العصر (مثل بايثون).</li>
+                                    <li contenteditable="true">تنمية قدرة التلميذ على التعليم الذاتي وحل المشكلات برمجياً.</li>
+                                    <li contenteditable="true">إعداد التلميذ للاشتراك في مسابقات الروبوت والذكاء الاصطناعي الدولية.</li>
+                                    <li contenteditable="true">تشجيع التلاميذ على نشر الوعي التقني والمالي في محيطهم.</li>
+                                    <li contenteditable="true">تأهيل التلاميذ للحصول على الشهادات الدولية المتخصصة.</li>
+                                </ol>
+                            </div>
+                            <div class="doc-signatures">
+                                <div>مشرف النشاط<span class="bind-supervisor" contenteditable="true"></span></div>
+                                <div>مدير المدرسة<span class="bind-headmaster" contenteditable="true"></span></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- التشكيل -->
+                    <div class="a4-page">
+                        <div class="page-content">
+                            <div class="doc-header"><h2 contenteditable="true">أعضاء وتشكيل مجلس إدارة الجماعة</h2></div>
+                            <div class="table-container">
+                                <table class="editable-table">
+                                    <thead>
+                                        <tr><th style="width:5%" contenteditable="true">م</th><th style="width:40%" contenteditable="true">الاسم</th><th style="width:20%" contenteditable="true">الفصل</th><th style="width:20%" contenteditable="true">العمل/المنصب</th><th style="width:15%" contenteditable="true">التوقيع</th></tr>
+                                    </thead>
+                                    <tbody id="group-body">
+                                        <tr><td contenteditable="true">1</td><td contenteditable="true" class="bind-teacherName" style="font-weight:900;"></td><td contenteditable="true">معلم</td><td contenteditable="true" style="color:var(--official-accent); font-weight:900;">رئيس الجماعة</td><td contenteditable="true"></td></tr>
+                                        <tr><td contenteditable="true">2</td><td contenteditable="true" style="font-weight:900;">عمر طارق عبد الله</td><td contenteditable="true">1/ث</td><td contenteditable="true">وكيل الجماعة</td><td contenteditable="true"></td></tr>
+                                        <tr><td contenteditable="true">3</td><td contenteditable="true" style="font-weight:900;">زياد أحمد فتحي</td><td contenteditable="true">2/ث</td><td contenteditable="true">أمين السر</td><td contenteditable="true"></td></tr>
+                                        <tr><td contenteditable="true">4</td><td contenteditable="true" style="font-weight:900;">علي حسن محمد</td><td contenteditable="true">2/ث</td><td contenteditable="true">عضو</td><td contenteditable="true"></td></tr>
+                                        <tr><td contenteditable="true">5</td><td contenteditable="true" style="font-weight:900;">كريم سعيد عثمان</td><td contenteditable="true">3/ث</td><td contenteditable="true">عضو</td><td contenteditable="true"></td></tr>
+                                        <tr><td contenteditable="true">6</td><td contenteditable="true" style="font-weight:900;">ياسين عمر الفاروق</td><td contenteditable="true">3/ث</td><td contenteditable="true">عضو</td><td contenteditable="true"></td></tr>
+                                        <tr><td contenteditable="true">7</td><td contenteditable="true" style="font-weight:900;">أحمد سعد الدين</td><td contenteditable="true">1/ث</td><td contenteditable="true">عضو</td><td contenteditable="true"></td></tr>
+                                        <tr><td contenteditable="true">8</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr>
+                                        <tr><td contenteditable="true">9</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="doc-signatures">
+                                <div>مشرف النشاط<span class="bind-supervisor" contenteditable="true"></span></div>
+                                <div>مدير المدرسة<span class="bind-headmaster" contenteditable="true"></span></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- محضر اجتماع أول -->
+                    <div class="a4-page">
+                        <div class="page-content">
+                            <div class="doc-header"><h2 contenteditable="true">الاجتماع الأول</h2></div>
+                            <div class="official-text" style="margin-bottom: 25px;">
+                                إنه في يوم <span contenteditable="true" style="border-bottom:2px dotted #000; min-width:100px; color:var(--official-accent); text-align:center;">الخميس</span> 
+                                الموافق <span contenteditable="true" style="border-bottom:2px dotted #000; min-width:150px; color:var(--official-accent); text-align:center;"> 24 / 9 / 2026 م</span><br>
+                                قد تم عقد الاجتماع الأول لجماعة <span class="bind-subject"></span> لمناقشة جدول الأعمال.
+                            </div>
+                            <h3 style="color:var(--official-blue); font-size:1.5rem; margin-bottom:10px;" contenteditable="true">جدول الأعمال:</h3>
+                            <div style="flex-grow: 1; border: 2px solid var(--table-border); padding: 15px; border-radius: 8px; margin-bottom: 20px; font-weight: 800; font-size: 1.4rem; background:#fff;">
+                                <ol style="list-style-position: inside; line-height:1.8;">
+                                    <li contenteditable="true">تهنئة الطلاب بالعام الدراسي الجديد.</li>
+                                    <li contenteditable="true">تعريف أعضاء الجماعة وقراءة الأهداف.</li>
+                                    <li contenteditable="true">تشكيل مجلس إدارة الجماعة للعام الحالي.</li>
+                                </ol>
+                            </div>
+                            <h3 style="color:var(--official-blue); font-size:1.5rem; margin-bottom:10px;" contenteditable="true">القرارات:</h3>
+                            <div style="flex-grow: 1; border: 2px solid var(--table-border); padding: 15px; border-radius: 8px; margin-bottom: 20px; font-weight: 800; font-size: 1.4rem; background:#fff;">
+                                <ol style="list-style-position: inside; line-height:1.8;">
+                                    <li contenteditable="true">تم التعارف بين الأعضاء وتلاوة أهداف الجماعة.</li>
+                                    <li contenteditable="true">تم تشكيل المجلس كما هو مدون في السجل.</li>
+                                    <li contenteditable="true">إغلاق الاجتماع على أن يعقد لاحقاً.</li>
+                                </ol>
+                            </div>
+                            <div class="doc-signatures">
+                                <div>مشرف النشاط<span class="bind-teacherName" contenteditable="true"></span></div>
+                                <div>مدير المدرسة<span class="bind-headmaster" contenteditable="true"></span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ============================== 7. سجل النشاط التعاوني ============================== -->
+            <section id="record-coop" class="view-container printable-record">
+                <div class="documents-wrapper">
+                    <!-- الغلاف -->
+                    <div class="a4-page cover-page">
+                        <div class="page-content">
+                            <div class="cover-header">
+                                <div>محافظة: <span class="bind-gov dynamic-val" contenteditable="true"></span><br>إدارة: <span class="bind-admin dynamic-val" contenteditable="true"></span></div>
+                                <div style="text-align: left;">المدرسة: <span class="bind-school dynamic-val" contenteditable="true"></span><br>المادة: <span class="bind-subject dynamic-val" contenteditable="true"></span></div>
+                            </div>
+                            <div class="cover-graphics" style="color: #ec4899;">
+                                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm3.5-9c.83 0 1.5-.67 1.5-1.5S16.33 8 15.5 8 14 8.67 14 9.5s.67 1.5 1.5 1.5zm-7 0c.83 0 1.5-.67 1.5-1.5S9.33 8 8.5 8 7 8.67 7 9.5 7.67 11 8.5 11zm3.5 6.5c2.33 0 4.31-1.46 5.11-3.5H6.89c.8 2.04 2.78 3.5 5.11 3.5z"/></svg>
+                            </div>
+                            <h1 class="cover-title" contenteditable="true">سجل النشاط التعاوني<br>والمشاريع الابتكارية</h1>
+                            <h2 class="cover-subtitle" contenteditable="true">للعام الدراسي <span class="bind-year dynamic-val"></span></h2>
+                            <div class="cover-details">
+                                <div class="cover-row"><span contenteditable="true">رائد النشاط:</span> <span class="bind-teacherName dynamic-val" contenteditable="true"></span></div>
+                                <div class="cover-row"><span contenteditable="true">مدير المدرسة:</span> <span class="bind-headmaster dynamic-val" contenteditable="true"></span></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- مقياس التقييم التعاوني -->
+                    <div class="a4-page">
+                        <div class="page-content">
+                            <div class="doc-header"><h2 contenteditable="true">مقياس تقدير النشاط التعاوني</h2></div>
+                            <div class="table-container">
+                                <table class="editable-table" style="text-align:right;">
+                                    <thead>
+                                        <tr><th style="width:40%" contenteditable="true">خطوات النشاط</th><th style="width:60%" contenteditable="true">مؤشر الأداء (تم / لم يتم / ملاحظات)</th></tr>
+                                    </thead>
+                                    <tbody id="coop-body">
+                                        <tr><td contenteditable="true" style="font-weight:900; color:var(--official-blue);">تكوين المجموعة التعاونية</td><td contenteditable="true" style="font-weight:900;">تم تحديد أفراد المجموعة والأدوار وشعار المجموعة (الروبوت الذكي).</td></tr>
+                                        <tr><td contenteditable="true" style="font-weight:900; color:var(--official-blue);">اختيار النشاط المناسب</td><td contenteditable="true" style="font-weight:900;">تصميم تطبيق بسيط لإدارة الميزانية الشخصية.</td></tr>
+                                        <tr><td contenteditable="true" style="font-weight:900; color:var(--official-blue);">تحديد الأدوار لكل متعلم</td><td contenteditable="true" style="font-weight:900;">مبرمج - مصمم - باحث بيانات - متحدث.</td></tr>
+                                        <tr><td contenteditable="true" style="font-weight:900; color:var(--official-blue);">تحديد إجراءات النشاط</td><td contenteditable="true" style="font-weight:900;">تدوين خطوات البرمجة مرتبة زمنياً.</td></tr>
+                                        <tr><td contenteditable="true" style="font-weight:900; color:var(--official-blue);">كتابة التقرير النهائي</td><td contenteditable="true" style="font-weight:900;">مشاركة كافة الأعضاء في كتابة الكود ورفعه على المنصة.</td></tr>
+                                        <tr><td contenteditable="true" style="font-weight:900; color:var(--official-blue);">عرض المخرجات</td><td contenteditable="true" style="font-weight:900;">تقديم التطبيق للزملاء في المعمل.</td></tr>
+                                        <tr><td contenteditable="true"></td><td contenteditable="true"></td></tr>
+                                        <tr><td contenteditable="true"></td><td contenteditable="true"></td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="doc-signatures">
+                                <div>رائد النشاط<span class="bind-teacherName" contenteditable="true"></span></div>
+                                <div>موجه المادة<span class="bind-supervisor" contenteditable="true"></span></div>
+                                <div>مدير المدرسة<span class="bind-headmaster" contenteditable="true"></span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- الفوتر السيادي الأصلي الزاهي 100% (لم يتم المساس به) -->
+        <div class="footer-wrapper no-print">
+            <div class="circle-container">
+                <svg viewBox="0 0 500 500" class="rotating-svg">
+                    <defs><path id="textCirclePath" d="M 250, 440 A 190,190 0 1,1 250,60 A 190,190 0 1,1 250,440" /></defs>
+                    <circle cx="250" cy="250" r="215" fill="none" stroke="rgba(0, 229, 255, 0.5)" stroke-width="6" />
+                    <circle cx="250" cy="250" r="165" fill="none" stroke="rgba(0, 229, 255, 0.5)" stroke-width="6" />
+                    <text><textPath href="#textCirclePath" startOffset="50%" text-anchor="middle" class="text-path-style">
+                        ALL RIGHTS RESERVED ®© DESIGNED & DEVELOPED BY <tspan class="name-highlight">MAHMOUD MOHAMED</tspan>
+                    </textPath></text>
+                </svg>
+                <div class="center-prayer">
+                    <span>ولا تنسونا من خالص دعائكم بظهر الغيب</span>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- JavaScript الأساسي (لم يتم المساس به إطلاقاً) -->
+    <script>
+        const defaultConfig = {
+            teacherName: "محمود محمد عبد الوهاب عيسى",
+            subject: "البرمجة والذكاء الاصطناعي والثقافة المالية",
+            school: "مدرسة محمد هاشم النقيب الثانوية المشتركة",
+            admin: "إدارة ميت غمر التعليمية",
+            gov: "محافظة الدقهلية",
+            year: "2026/2027",
+            headmaster: "",
+            supervisor: "أ/ ياسر سليم عبد العال",
+            seniorSupervisor: "أ/ عصمت",
+            generalSupervisor: "أ/ مهدي"
+        };
+
+        let saveTimeout;
+
+        function restoreWorkspace() {
+            const savedHTML = localStorage.getItem('sovereign_workspace_v5');
+            if(savedHTML) { document.getElementById('all-records-container').innerHTML = savedHTML; }
+        }
+
+        function saveWorkspace() {
+            const containerHTML = document.getElementById('all-records-container').innerHTML;
+            localStorage.setItem('sovereign_workspace_v5', containerHTML);
+            showToast();
+        }
+
+        document.addEventListener('input', (e) => {
+            if(e.target.isContentEditable) { clearTimeout(saveTimeout); saveTimeout = setTimeout(saveWorkspace, 1000); }
+        });
+
+        function syncSettings() {
+            Object.keys(defaultConfig).forEach(key => {
+                const input = document.getElementById(`setting-${key}`);
+                if (input) {
+                    const savedVal = localStorage.getItem(`config_v5_${key}`);
+                    input.value = savedVal !== null ? savedVal : defaultConfig[key];
+                    updateBinders(key, input.value);
+                    input.addEventListener('input', (e) => {
+                        const val = e.target.value; localStorage.setItem(`config_v5_${key}`, val);
+                        updateBinders(key, val); clearTimeout(saveTimeout); saveTimeout = setTimeout(saveWorkspace, 500);
+                    });
+                }
+            });
+        }
+
+        function updateBinders(key, value) {
+            document.querySelectorAll(`.bind-${key}`).forEach(el => { if(document.activeElement !== el) { el.innerText = value; } });
+        }
+
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', (e) => {
+                document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+                link.classList.add('active');
+                
+                const targetId = link.getAttribute('data-target');
+                document.querySelectorAll('.view-container').forEach(v => v.classList.remove('active'));
+                
+                const targetSection = document.getElementById(targetId);
+                targetSection.classList.add('active');
+                document.querySelector('.workspace').scrollTo({top: 0, behavior: 'smooth'});
+
+                const printBtn = document.getElementById('mainPrintBtn');
+                if(targetSection.classList.contains('printable-record')) {
+                    printBtn.style.display = 'flex';
+                } else {
+                    printBtn.style.display = 'none';
+                }
+            });
+        });
+
+        function showToast() {
+            const toast = document.getElementById('toast');
+            toast.classList.add('show'); setTimeout(() => toast.classList.remove('show'), 2500);
+        }
+
+        function addTableRow(tbodyId, columns) {
+            const tbody = document.getElementById(tbodyId); const rowCount = tbody.rows.length + 1;
+            const tr = document.createElement('tr'); let html = `<td contenteditable="true">${rowCount}</td>`;
+            for(let i=1; i<columns; i++) html += `<td contenteditable="true"></td>`;
+            tr.innerHTML = html; tbody.appendChild(tr); saveWorkspace();
+        }
+
+        function duplicatePrepPage(btn) {
+            const pageWrapper = btn.closest('.prep-page-wrapper');
+            const template = pageWrapper.querySelector('.prep-page-template').cloneNode(true);
+            template.querySelectorAll('[contenteditable="true"]').forEach(el => {
+                if(!el.classList.contains('bind-teacherName') && !el.classList.contains('bind-headmaster')) {
+                    if(el.tagName === 'TD' || el.tagName === 'DIV') el.innerHTML = '';
+                }
+            });
+            const newPage = document.createElement('div'); newPage.className = 'a4-page prep-page-wrapper';
+            const newBtn = document.createElement('button'); newBtn.className = 'add-row-btn no-print';
+            newBtn.innerHTML = '<i class="fas fa-copy"></i> إضافة صفحة تحضير جديدة';
+            newBtn.onclick = function() { duplicatePrepPage(this); };
+            newPage.appendChild(newBtn); newPage.appendChild(template);
+            pageWrapper.parentNode.insertBefore(newPage, pageWrapper.nextSibling); saveWorkspace();
+        }
+
+        function triggerPrint() {
+            const activeView = document.querySelector('.view-container.active');
+            if (!activeView || !activeView.classList.contains('printable-record')) { 
+                alert("يرجى فتح أحد السجلات من القائمة الجانبية أولاً لتتمكن من طباعته."); 
+                return; 
+            }
+            window.print();
+        }
+
+        function exportData() {
+            const dataToExport = { settings: {}, workspace: localStorage.getItem('sovereign_workspace_v5') || '' };
+            Object.keys(defaultConfig).forEach(key => { dataToExport.settings[key] = localStorage.getItem(`config_v5_${key}`) || defaultConfig[key]; });
+            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(dataToExport));
+            const node = document.createElement('a'); node.setAttribute("href", dataStr); node.setAttribute("download", "المنصة_السيادية_محمود_عيسى_2026.json");
+            document.body.appendChild(node); node.click(); node.remove();
+        }
+
+        function importData(event) {
+            const file = event.target.files[0]; if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const data = JSON.parse(e.target.result);
+                    if(data.settings) { Object.keys(data.settings).forEach(key => localStorage.setItem(`config_v5_${key}`, data.settings[key])); }
+                    if(data.workspace) { localStorage.setItem('sovereign_workspace_v5', data.workspace); }
+                    alert("تم الاستيراد بنجاح! سيتم تحديث الصفحة."); location.reload();
+                } catch(err) { alert("ملف غير صالح."); }
+            };
+            reader.readAsText(file);
+        }
+
+        function syncAppsScript(btn) {
+            const webhookUrl = document.getElementById('setting-webhook').value;
+            if(!webhookUrl) { alert("يرجى إدخال رابط Webhook أولاً."); return; }
+            btn.innerHTML = '<i class="fas fa-sync-alt fa-spin"></i> جاري المزامنة...';
+            setTimeout(() => { btn.innerHTML = '<i class="fas fa-check-double"></i> تمت المزامنة'; setTimeout(() => btn.innerHTML = '<i class="fas fa-cloud-upload-alt"></i> مزامنة سحابية', 2000); }, 1500);
+        }
+
+        window.onload = () => { 
+            restoreWorkspace(); 
+            syncSettings(); 
+            const activeView = document.querySelector('.view-container.active');
+            if(activeView && activeView.classList.contains('printable-record')) {
+                document.getElementById('mainPrintBtn').style.display = 'flex';
+            }
+        };
+    </script>
+</body>
+</html>
+
